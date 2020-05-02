@@ -7,8 +7,8 @@ require('dotenv').config();
 
 const { db } = require('./config/db');
 
-const index = require('./api/routes/index');
-const user = require('./api/routes/user');
+const index = require('./api/routes/index'),
+  user = require('./api/routes/user');
 
 app.use(cors());
 app.use(bParser.json());
