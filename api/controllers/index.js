@@ -1,5 +1,6 @@
 
 const getIndex = (req, res, next) => {
+  res.status(200).json({ success: 'working api' });
 };
 
 const postIndex = (req, res, next) => {

@@ -3,9 +3,15 @@ const express = require('express'),
   { body } = require('express-validator'),
   router = express.Router();
 
-const { userList, registerUser } = require('../controllers/user');
+const { userList, registerUser, login } = require('../controllers/user');
 
 router.get('/', userList);
+router.post('/login', [
+  validate([
+    body('email').isEmail().trim(),
+    body('password').exists().isLength({ min: 5 })
+  ])
+], login);
 router.post('/register', [
   validate([
     body('email').isEmail().trim(),
