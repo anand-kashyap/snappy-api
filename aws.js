@@ -1,7 +1,8 @@
 const express = require('express'),
   port = 2000,
-  // cors = require('cors'),
-  bParser = require('body-parser'),
+  { join } = require('path');
+// cors = require('cors'),
+bParser = require('body-parser'),
   app = express();
 require('dotenv').config();
 
@@ -9,6 +10,8 @@ const { db } = require('./config/db');
 
 const index = require('./api/routes/index'),
   user = require('./api/routes/user');
+
+app.use(express.static(join(__dirname, 'public')));
 
 // app.use(cors());
 app.use(bParser.urlencoded({
