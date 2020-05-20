@@ -17,7 +17,7 @@ app.use(bParser.urlencoded({
 app.use(bParser.json());
 
 //test db connection
-app.use('/*', function (req, res, next) {
+app.use('/api/*', function (req, res, next) {
   if (db.connection.readyState !== 1) {
     return res.status(500)
       .json({ msg: 'Unable to connect to database' });
@@ -25,8 +25,8 @@ app.use('/*', function (req, res, next) {
   next();
 });
 
-app.use('/', index);
-app.use('/user', user);
+app.use('/api', index);
+app.use('/api/user', user);
 
 
 app.use((err, req, res, next) => { // global error handle
