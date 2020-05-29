@@ -11,8 +11,6 @@ const { db } = require('./config/db');
 const index = require('./api/routes/index'),
   user = require('./api/routes/user');
 
-app.use(express.static(join(__dirname, 'public')));
-
 // app.use(cors());
 app.use(bParser.urlencoded({
   extended: true
@@ -20,7 +18,7 @@ app.use(bParser.urlencoded({
 app.use(bParser.json());
 
 //test db connection
-app.use('/*', function (req, res, next) {
+app.use('/api/*', function (req, res, next) {
   if (db.connection.readyState !== 1) {
     return res.status(500)
       .json({ msg: 'Unable to connect to database' });
@@ -28,9 +26,13 @@ app.use('/*', function (req, res, next) {
   next();
 });
 
-app.use('/', index);
-app.use('/user', user);
+app.use('/api', index);
+app.use('/api/user', user);
 
+app.use(express.static('./public'));
+app.get('/*', function (req, res, next) {
+  res.sendFile('index.html', { root: __dirname + '/public' });
+});
 
 app.use((err, req, res, next) => { // global error handle
   console.error(err.stack);
