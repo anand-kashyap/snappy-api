@@ -1,7 +1,6 @@
 const express = require('express'),
   port = process.env.PORT || 2000,
   cors = require('cors'),
-  bParser = require('body-parser'),
   app = express();
 require('dotenv').config();
 
@@ -11,10 +10,10 @@ const index = require('./api/routes/index'),
   user = require('./api/routes/user');
 
 app.use(cors());
-app.use(bParser.urlencoded({
+app.use(express.urlencoded({
   extended: true
-}));
-app.use(bParser.json());
+}))
+app.use(express.json());
 
 //test db connection
 app.use('/api/*', function (req, res, next) {
